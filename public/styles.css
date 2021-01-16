@@ -1,0 +1,8 @@
+th > a {
+    color: rgb(33, 37, 41);
+    text-decoration: none;
+}
+
+th > a:hover {
+    color: rgb(33, 37, 41, .85);
+}
