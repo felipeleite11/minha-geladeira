@@ -16,6 +16,10 @@ class ProductController extends Controller
      */
     public function index()
     {
+        if(session('login') == null) {
+            return redirect('/');
+        }
+
         $allProducts = Product::all();
         $products = Product::sortable()->paginate(8);
 

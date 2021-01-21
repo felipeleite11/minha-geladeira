@@ -1,8 +1,8 @@
 @extends('layouts/auth')
 
 @section('notifications')
-    @if(count($notifications))
-        <div class="alert alert-warning alert-dismissible fade show animate__animated animate__shakeX" role="alert">
+    @if(isset($notifications) && count($notifications))
+        <div class="alert alert-warning alert-dismissible fade show animate__animated animate__flash" role="alert">
             <b>Warning!</b>
 
             @php
@@ -32,15 +32,15 @@
 @section('store')
 
 @if(isset($product))
-    <form action="/product/update/{{$product->id}}" method="POST">
-    @method('PUT')
+<form action="/product/{{$product->id}}" method="POST" class="animate__animated animate__fadeIn animate__slow">
+@method('PUT')
+@csrf
+    <h4>Edit a product</h4>
 @else
-    <form action="/product/store" method="POST">
-@endif
-
-    @csrf
-
+<form action="/product" method="POST" class="animate__animated animate__fadeIn animate__slow">
+@csrf
     <h4>Add a product</h4>
+@endif
 
     <div class="row">
         <div class="col-md">
@@ -53,7 +53,7 @@
         <div class="col-md">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">Shelf life</span>
-                <input type="date" class="form-control" name="shelf_life" required value="{{isset($product->shelf_life) ? $product->shelf_life->format('d/m/Y') : ''}}">
+                <input type="date" class="form-control" name="shelf_life" required value="{{isset($product->shelf_life) ? $product->shelf_life->format('Y-m-d') : ''}}">
             </div>
         </div>
 
@@ -107,7 +107,7 @@
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <a href="/product/edit/{{$product->id}}" class="btn btn-primary btn-sm">Editar</a>
 
-                        <form action="/product/destroy/{{$product->id}}" method="POST">
+                        <form action="/product/{{$product->id}}" method="POST">
                         @csrf
                         @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
